@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-    Setup file for decryptanian.
+    Setup file for jemmy.
 
     This file was generated with PyScaffold 2.2.1, a tool that easily
     puts up a scaffold for your new Python project. Learn more under:
@@ -28,7 +28,7 @@ __location__ = os.path.join(os.getcwd(), os.path.dirname(
 
 # determine root package and package path if namespace package is used
 pyscaffold_version = "2.2.1"
-package = "decryptanian"
+package = "jemmy"
 namespace = []
 root_pkg = namespace[0] if namespace else package
 if namespace:

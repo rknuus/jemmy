@@ -5,7 +5,7 @@ This is a skeleton file that can serve as a starting point for a Python
 console script. To run this script uncomment the following line in the
 console_scripts section in setup.cfg:
 
-    hello_world = decryptanian.skeleton:run
+    hello_world = jemmy.skeleton:run
 
 Then run `python setup.py install` which will install the command `hello_world`
 inside your current environment.
@@ -20,7 +20,7 @@ import argparse
 import sys
 import logging
 
-from decryptanian import __version__
+from jemmy import __version__
 
 __author__ = "Raphael Knaus"
 __copyright__ = "Raphael Knaus"
@@ -42,7 +42,7 @@ def parse_args(args):
         '-v',
         '--version',
         action='version',
-        version='decryptanian {ver}'.format(ver=__version__))
+        version='jemmy {ver}'.format(ver=__version__))
     return parser.parse_args(args)
 
 
