@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 from nose.tools import *
 import jemmy.dic
 import unittest

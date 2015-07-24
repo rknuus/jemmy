@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 from collections import namedtuple
 from nose.tools import *
 import jemmy.reverse
