@@ -3,9 +3,9 @@
 
 
 import argparse
-import sys
 import logging
 import plugins
+import sys
 
 
 __author__ = "Raphael Knaus"
@@ -16,7 +16,7 @@ __version__ = "0.0.1"
 _logger = logging.getLogger(__name__)
 
 
-def parse_args(args):
+def main(args):
     parser = argparse.ArgumentParser(
         description="An experimental decryption assistant supporting you in solving GeoCaching mysteries based on encryption. Use at own risk.")
     parser.add_argument(
@@ -24,19 +24,50 @@ def parse_args(args):
         '--version',
         action='version',
         version='jemmy {ver}'.format(ver=__version__))
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument(
+    parser.add_argument(
+        '-p',
+        '--plugin',
+        action='store')
+    input_group = parser.add_mutually_exclusive_group()
+    input_group.add_argument(
+        '-t',
+        '--ciphertext',
+        action='store',
+        help='The ciphertext to decrypt or crack.')
+    # input_group.add_argument(
+    #     '-f',
+    #     '--cipherfile',
+    #     action='store',
+    #     help='The file containing the ciphertext to decrypt or crack.')
+    command_group = parser.add_mutually_exclusive_group(required=True)
+    command_group.add_argument(
         '-l',
         '--list',
-        action='store_true')
-    return parser.parse_args(args)
+        action='store_true',
+        help='List all available jemmy plugins.')
+    command_group.add_argument(
+        '-d',
+        '--decrypt',
+        action='store_true',
+        help='--decrypt --plugin PLUGIN [--key KEY] --ciphertext CIPHERTEXT\nDecrypt CIPHERTEXT with plugin PLUGIN and using the optional key KEY.')
+    args = parser.parse_args(args)
 
-
-def main(args):
-    args = parse_args(args)
     if args.list:
-        all_plugins = plugins.Plugins()
-        all_plugins.list()
+        all_plugin_types = plugins.Plugins()
+        all_plugin_types.list()
+    elif args.decrypt:
+        if not args.plugin:
+            parser.print_help()
+            print("Error: No plugin defined.")
+            sys.exit(1)
+        if not args.ciphertext:
+            parser.print_help()
+            print("Error: No CIPHERTEXT given.")
+            sys.exit(1)
+        all_plugin_types = plugins.Plugins()
+        plugin_type = all_plugin_types.get(args.plugin)
+        plugin = plugin_type(dic=[])
+        print(plugin.decrypt(ciphertext=args.ciphertext))
 
 
 def run():

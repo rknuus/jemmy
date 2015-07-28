@@ -46,3 +46,14 @@ class Plugins:
                 print(Plugin.elevator_pitch(plugin))
         else:
             print("No jemmy plugins found.")
+
+    def get(self, plugin):
+        matches = list(filter(lambda p: p.__name__ == plugin, self._plugins))
+        if len(matches) > 1:
+            _logger.fatal("Found multiple plugins matching {0}".format(plugin))
+            return None
+        elif len(matches) < 1:
+            _logger.fatal("No plugin found matching {0}".format(plugin))
+            return None
+
+        return matches[0]
