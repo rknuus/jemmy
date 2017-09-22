@@ -7,9 +7,9 @@ import jemmy.plugins
 import sys
 
 __author__ = "Raphael Knaus"
-__copyright__ = "Raphael Knaus"
-__license__ = "none"
-__version__ = "0.0.1"
+__copyright__ = __author__
+__license__ = "Don't Be a Jerk"
+__version__ = "0.0.2"
 
 _logger = logging.getLogger(__name__)
 

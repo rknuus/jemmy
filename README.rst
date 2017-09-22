@@ -15,11 +15,10 @@ coordinates (see http://www.geocaching.com). The tool eventually should support 
 some simple (and inherently insecure) codes and ciphers. Some procedures might be fully
 automated, others interactive, and some require the correct key.
 
-In plain English (inspired by https://en.wikipedia.org/wiki/Interactive_EasyFlow):
-What ever YOU do with the tool, YOU are fully liable for using of the tool, including all
-consequences. This means basically the same as most disclaimers that come with software
-packages. If you don't like this disclaimer: tough. We reserve the right to do the absolute
-minimum provided by law, up to and including nothing.
+
+License
+=======
+Don't Be a Jerk: The [simple] Open Source [free-as-in-beer] Software License, see LICENSE.txt.
 
 
 Note
