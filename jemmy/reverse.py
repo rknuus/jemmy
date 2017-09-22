@@ -1,15 +1,15 @@
 # -*- coding: utf-8 -*-
 
-
 from collections import namedtuple
-import dic  # not strictly required, but documents dependency on dic class
-import plugins
+import jemmy.dic  # not strictly required, but documents dependency on dic class
+import jemmy.plugins
 
 
-class Reverse(plugins.Plugin):
+class Reverse(jemmy.plugins.Plugin):
     """
     Decryption and cracking of reversed texts.
     """
+
     def __init__(self, dic):
         self._dic = dic
 
