@@ -1,13 +1,11 @@
 # -*- coding: utf-8 -*-
 
-
 import glob
 import importlib
 import inspect
 import jemmy  # required to avoid "parent module not loaded, cannot perform relative import" error
 import logging
 import os
-
 
 _logger = logging.getLogger(__name__)
 
@@ -20,6 +18,7 @@ class Plugin:
 
 class Plugins:
     """Collects all jemmy plugins and provides access."""
+
     def __init__(self):
         super(Plugins, self).__init__()
         self._plugins = []
@@ -33,7 +32,7 @@ class Plugins:
                 continue
 
             _logger.debug("checking module ", file_name)
-            module = importlib.import_module(file_name, package=current_module_name)
+            module = importlib.import_module('.{}'.format(file_name), package=current_module_name)
             for class_name, obj in inspect.getmembers(module):
                 _logger.debug("found ", class_name)
                 if inspect.isclass(obj) and issubclass(obj, Plugin) and class_name is not Plugin.__name__:
