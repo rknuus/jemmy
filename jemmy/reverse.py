@@ -24,11 +24,6 @@ class Reverse(jemmy.plugins.Plugin):
         result.score = 0
         result.plaintext = ''  # must initialize it, as it's just a wrapper object, else it would not properly compare
 
-        if not ciphertext:
-            result.cracked = True
-            result.plaintext = ciphertext  # rubbish in, rubbish out
-            return result
-
         potential_plaintext = self.decrypt(ciphertext, **kwargs)
 
         result.score = self._dic.score(potential_plaintext)

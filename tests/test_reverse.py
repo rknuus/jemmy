@@ -26,7 +26,7 @@ def test_reverse_sentence():
 def test_crack_empty_word():
     plugin = jemmy.reverse.Reverse(jemmy.dic.Dic(['a']))
     result = plugin.crack('', threshold_percent=100)
-    assert result.cracked
+    assert not result.cracked
     assert result.plaintext == ''
 
 
