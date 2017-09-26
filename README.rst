@@ -16,6 +16,13 @@ some simple (and inherently insecure) codes and ciphers. Some procedures might b
 automated, others interactive, and some require the correct key.
 
 
+Usage
+=====
+* to list all available plugins: `jemmy -l`
+* to run an analysis operation for a specific plugin: `jemmy -p GuessCipher -c "abcdef01234567" -a`
+* to decrypt using a specific plugin: `jemmy -p Reverse -c "abcdef01234567" -d`
+
+
 License
 =======
 Don't Be a Jerk: The [simple] Open Source [free-as-in-beer] Software License, see LICENSE.txt.
