@@ -8,6 +8,8 @@ import jemmy.plugins
 class Reverse(jemmy.plugins.Plugin):
     """
     Decryption and cracking of reversed texts.
+
+    Implements operations decrypt and crack.
     """
 
     def __init__(self, dic):

@@ -7,6 +7,8 @@ import jemmy.plugins
 class GuessCipher(jemmy.plugins.Plugin):
     """
     Tries to guess possible ciphers by analyzing the ciphertext.
+
+    Implements operation analyze.
     """
 
     HEX_ALPHABET = '0123456789abcdef'

@@ -14,6 +14,11 @@ __version__ = "0.0.2"
 _logger = logging.getLogger(__name__)
 
 
+def __has_method(obj, method):
+    attribute = getattr(obj, method, None)
+    return callable(attribute)
+
+
 def main(args):
     parser = argparse.ArgumentParser(
         description=(
@@ -59,9 +64,17 @@ def main(args):
     plugin_type = all_plugin_types.get(args.plugin)
     plugin = plugin_type(dic=[])  # TODO(KNR): empty dic
     if args.decrypt:
+        if not __has_method(plugin, 'decrypt'):
+            parser.print_help()
+            print('Error: plugin "{}" does not support operation "decrypt"'.format(type(plugin).__name__))
+            sys.exit(1)
         print(plugin.decrypt(ciphertext=args.ciphertext))
         # TODO(KNR): crack command not implemented?!
     elif args.analyze:
+        if not __has_method(plugin, 'analyze'):
+            parser.print_help()
+            print('Error: plugin "{}" does not support operation "analyze"'.format(type(plugin).__name__))
+            sys.exit(1)
         result = plugin.analyze(ciphertext=args.ciphertext, threshold_percent=args.threshold)
         print('{}: {} (score: {})'.format('Match' if result.match else 'No match', result.comment, result.score))
 
