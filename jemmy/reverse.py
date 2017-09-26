@@ -19,8 +19,9 @@ class Reverse(jemmy.plugins.Plugin):
         return ciphertext[::-1]
 
     def crack(self, ciphertext, threshold_percent, **kwargs):
-        result = namedtuple('Result', 'cracked plaintext')
+        result = namedtuple('Result', ['cracked', 'score', 'plaintext'])
         result.cracked = False
+        result.score = 0
         result.plaintext = ''  # must initialize it, as it's just a wrapper object, else it would not properly compare
 
         if not ciphertext:
@@ -30,7 +31,8 @@ class Reverse(jemmy.plugins.Plugin):
 
         potential_plaintext = self.decrypt(ciphertext, **kwargs)
 
-        if self._dic.score(potential_plaintext) >= threshold_percent:
+        result.score = self._dic.score(potential_plaintext)
+        if result.score >= threshold_percent:
             result.cracked = True
             result.plaintext = self.decrypt(ciphertext, **kwargs)
 
