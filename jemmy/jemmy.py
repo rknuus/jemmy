@@ -26,8 +26,10 @@ def main(args):
             "Use at own risk."))
     parser.add_argument('-v', '--version', action='version', version='jemmy {ver}'.format(ver=__version__))
     parser.add_argument('-p', '--plugin', action='store')
+    parser.add_argument('-k', '--key', action='store', help='The key for encryption/decryption.')
     input_group = parser.add_mutually_exclusive_group()
     input_group.add_argument('-c', '--ciphertext', action='store', help='The ciphertext to decrypt or crack.')
+    input_group.add_argument('-m', '--plaintext', action='store', help='The plaintext to encrypt.')
     # input_group.add_argument(
     #     '-f',
     #     '--cipherfile',
@@ -39,7 +41,11 @@ def main(args):
     command_group.add_argument(
         '-d', '--decrypt',
         action='store_true',
-        help='--decrypt --plugin PLUGIN --ciphertext CIPHERTEXT\nDecrypt CIPHERTEXT with plugin PLUGIN.')
+        help='--decrypt --plugin PLUGIN --ciphertext CIPHERTEXT --key KEY\nDecrypt CIPHERTEXT with key KEY and plugin PLUGIN.')
+    command_group.add_argument(
+        '-e', '--encrypt',
+        action='store_true',
+        help='--encrypt --plugin PLUGIN --plaintext PLAINTEXT --key KEY\nEncrypt PLAINTEXT with key KEY and plugin PLUGIN.')
     # TODO(KNR): later support optional --key KEY
     command_group.add_argument(
         '-a', '--analyze',
@@ -56,21 +62,37 @@ def main(args):
         parser.print_help()
         print("Error: No plugin defined.")
         sys.exit(1)
-    if not args.ciphertext:
-        parser.print_help()
-        print("Error: No CIPHERTEXT given.")
-        sys.exit(1)
+
+    key = args.key or ''
 
     plugin_type = all_plugin_types.get(args.plugin)
     plugin = plugin_type(dic=[])  # TODO(KNR): empty dic
     if args.decrypt:
+        if not args.ciphertext:
+            parser.print_help()
+            print("Error: No CIPHERTEXT given.")
+            sys.exit(1)
         if not __has_method(plugin, 'decrypt'):
             parser.print_help()
             print('Error: plugin "{}" does not support operation "decrypt"'.format(type(plugin).__name__))
             sys.exit(1)
-        print(plugin.decrypt(ciphertext=args.ciphertext))
+        print(plugin.decrypt(ciphertext=args.ciphertext, key=key))
+    if args.encrypt:
+        if not args.plaintext:
+            parser.print_help()
+            print("Error: No PLAINTEXT given.")
+            sys.exit(1)
+        if not __has_method(plugin, 'encrypt'):
+            parser.print_help()
+            print('Error: plugin "{}" does not support operation "encrypt"'.format(type(plugin).__name__))
+            sys.exit(1)
+        print(plugin.encrypt(plaintext=args.plaintext, key=key))
         # TODO(KNR): crack command not implemented?!
     elif args.analyze:
+        if not args.ciphertext:
+            parser.print_help()
+            print("Error: No CIPHERTEXT given.")
+            sys.exit(1)
         if not __has_method(plugin, 'analyze'):
             parser.print_help()
             print('Error: plugin "{}" does not support operation "analyze"'.format(type(plugin).__name__))
