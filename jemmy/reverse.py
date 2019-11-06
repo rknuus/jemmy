@@ -7,13 +7,16 @@ import jemmy.plugins
 
 class Reverse(jemmy.plugins.Plugin):
     """
-    Decryption and cracking of reversed texts.
+    Encryption, decryption, and cracking of reversed texts.
 
-    Implements operations decrypt and crack.
+    Implements operations encrypt, decrypt and crack.
     """
 
     def __init__(self, dic):
         self._dic = dic
+
+    def encrypt(self, plaintext, **kwargs):
+        return plaintext[::-1]
 
     def decrypt(self, ciphertext, **kwargs):
         return ciphertext[::-1]
