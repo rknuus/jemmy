@@ -21,6 +21,7 @@ Usage
 * to list all available plugins: `jemmy -l`
 * to run an analysis operation for a specific plugin: `jemmy -p GuessCipher -c "abcdef01234567" -a`
 * to encrypt or decrypt using a specific plugin:
+
   * `jemmy -p Vigenere -m "abcdef01234567" -e -k "ba"`
   * `jemmy -p Vigenere -c "abcdef01234567" -d -k "ba"`
   * `jemmy -p Reverse -c "abcdef01234567" -d`
