@@ -19,7 +19,7 @@ class Reverse(jemmy.plugins.Plugin):
         return plaintext[::-1]
 
     def decrypt(self, ciphertext, **kwargs):
-        return ciphertext[::-1]
+        return self.encrypt(plaintext=ciphertext, **kwargs)
 
     def crack(self, ciphertext, threshold_percent, **kwargs):
         result = namedtuple('Result', ['cracked', 'score', 'plaintext'])
